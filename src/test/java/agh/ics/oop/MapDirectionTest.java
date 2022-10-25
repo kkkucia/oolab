@@ -13,10 +13,10 @@ public class MapDirectionTest {
         MapDirection west = MapDirection.WEST;
         MapDirection east = MapDirection.EAST;
 
-        assertEquals(MapDirection.EAST, MapDirection.next(north));
-        assertEquals(MapDirection.WEST, MapDirection.next(south));
-        assertEquals(MapDirection.NORTH, MapDirection.next(west));
-        assertEquals(MapDirection.SOUTH, MapDirection.next(east));
+        assertEquals(MapDirection.EAST, north.next());
+        assertEquals(MapDirection.WEST, south.next());
+        assertEquals(MapDirection.NORTH, west.next());
+        assertEquals(MapDirection.SOUTH, east.next());
     }
 
     @Test
@@ -26,9 +26,9 @@ public class MapDirectionTest {
         MapDirection west = MapDirection.WEST;
         MapDirection east = MapDirection.EAST;
 
-        assertEquals(MapDirection.WEST, MapDirection.previous(north));
-        assertEquals(MapDirection.EAST, MapDirection.previous(south));
-        assertEquals(MapDirection.SOUTH, MapDirection.previous(west));
-        assertEquals(MapDirection.NORTH, MapDirection.previous(east));
+        assertEquals(MapDirection.WEST, north.previous());
+        assertEquals(MapDirection.EAST, south.previous());
+        assertEquals(MapDirection.SOUTH, west.previous());
+        assertEquals(MapDirection.NORTH, east.previous());
     }
 }

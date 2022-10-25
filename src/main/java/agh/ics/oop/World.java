@@ -3,7 +3,7 @@ package agh.ics.oop;
 public class World {
     public static void main(String[] args) {
         System.out.println("Start");
-        Direction[] moves = change(args);
+        MoveDirection[] moves = OptionsParser.parse(args);
         run(moves);
         System.out.println("Stop");
 
@@ -12,9 +12,18 @@ public class World {
         Vector2d position2 = new Vector2d(-2, 1);
         System.out.println(position2);
         System.out.println(position1.add(position2));
+
+        Animal animal = new Animal();
+        System.out.println(animal);
+
+        animal.move(MoveDirection.RIGHT);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        System.out.println(animal);
     }
 
-    public static Direction[] change(String[] args) {
+    private static Direction[] change(String[] args) {
         Direction[] moves = new Direction[args.length];
         for (int i = 0; i < args.length; i++) {
             moves[i] = switch (args[i]) {
@@ -22,14 +31,14 @@ public class World {
                 case "b" -> Direction.BACKWARD;
                 case "r" -> Direction.RIGHT;
                 case "l" -> Direction.LEFT;
-                default -> Direction.FAIL;
+                default -> null;
             };
         }
         return moves;
     }
 
-    public static void run(Direction[] moves) {
-        for (Direction argument : moves) {
+    private static void run(MoveDirection[] moves) {
+        for (MoveDirection argument : moves) {
             String move = switch (argument) {
                 case FORWARD -> "Zwierzak idzie do przodu";
                 case BACKWARD -> "Zwierzak idzie do tyłu";
