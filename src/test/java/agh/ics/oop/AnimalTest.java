@@ -5,111 +5,102 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AnimalTest {
-    MapDirection expectedNorth = MapDirection.NORTH;
-    MapDirection expectedSouth = MapDirection.SOUTH;
-    MapDirection expectedEast = MapDirection.EAST;
-    MapDirection expectedWest = MapDirection.WEST;
-
     @Test
     public void testCorrectDirectionRight() {
-        Animal animal = new Animal();
+        Animal animal = new Animal(new RectangularMap(4, 4), new Vector2d(2, 2));
 
-        assertEquals(animal.getDirection(), expectedNorth);
-
-        animal.move(MoveDirection.RIGHT);
-        assertEquals(animal.getDirection(), expectedEast);
+        assertEquals(MapDirection.NORTH, animal.getDirection());
 
         animal.move(MoveDirection.RIGHT);
-        assertEquals(animal.getDirection(), expectedSouth);
+        assertEquals(MapDirection.EAST, animal.getDirection());
 
         animal.move(MoveDirection.RIGHT);
-        assertEquals(animal.getDirection(), expectedWest);
+        assertEquals(MapDirection.SOUTH, animal.getDirection());
 
         animal.move(MoveDirection.RIGHT);
-        assertEquals(animal.getDirection(), expectedNorth);
+        assertEquals(MapDirection.WEST, animal.getDirection());
+
+        animal.move(MoveDirection.RIGHT);
+        assertEquals(MapDirection.NORTH, animal.getDirection());
     }
 
     @Test
     public void testCorrectDirectionLeft() {
-        Animal animal = new Animal();
+        Animal animal = new Animal(new RectangularMap(4, 4), new Vector2d(2, 2));
 
-        assertEquals(animal.getDirection(), expectedNorth);
-
-        animal.move(MoveDirection.LEFT);
-        assertEquals(animal.getDirection(), expectedWest);
+        assertEquals(MapDirection.NORTH, animal.getDirection());
 
         animal.move(MoveDirection.LEFT);
-        assertEquals(animal.getDirection(), expectedSouth);
+        assertEquals(MapDirection.WEST, animal.getDirection());
 
         animal.move(MoveDirection.LEFT);
-        assertEquals(animal.getDirection(), expectedEast);
+        assertEquals(MapDirection.SOUTH, animal.getDirection());
 
         animal.move(MoveDirection.LEFT);
-        assertEquals(animal.getDirection(), expectedNorth);
+        assertEquals(MapDirection.EAST, animal.getDirection());
+
+        animal.move(MoveDirection.LEFT);
+        assertEquals(MapDirection.NORTH, animal.getDirection());
     }
 
 
     @Test
     public void testCorrectPosition() {
-        Animal animal = new Animal();
+        Animal animal = new Animal(new RectangularMap(4, 4), new Vector2d(2, 2));
 
-        assertEquals(animal.getPosition(), new Vector2d(2, 2));
+        assertEquals(new Vector2d(2, 2), animal.getPosition());
 
         animal.move(MoveDirection.FORWARD);
-        assertEquals(animal.getPosition(), new Vector2d(2, 3));
+        assertEquals(new Vector2d(2, 3), animal.getPosition());
 
         animal.move(MoveDirection.RIGHT).move(MoveDirection.FORWARD);
-        assertEquals(animal.getPosition(), new Vector2d(3, 3));
+        assertEquals(new Vector2d(3, 3), animal.getPosition());
 
         animal.move(MoveDirection.FORWARD);
-        assertEquals(animal.getPosition(), new Vector2d(4, 3));
+        assertEquals(new Vector2d(4, 3), animal.getPosition());
 
         animal.move(MoveDirection.LEFT).move(MoveDirection.FORWARD);
-        assertEquals(animal.getPosition(), new Vector2d(4, 4));
+        assertEquals(new Vector2d(4, 4), animal.getPosition());
 
         animal.move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD);
-        assertEquals(animal.getPosition(), new Vector2d(4, 1));
-
-
+        assertEquals(new Vector2d(4, 1), animal.getPosition());
     }
 
     @Test
     public void testGoOutsideTheMap() {
-        Animal animal = new Animal();
+        Animal animal1 = new Animal(new RectangularMap(4, 4), new Vector2d(2, 2));
 
-        animal.setPosition(new Vector2d(0, 0));
-        animal.move(MoveDirection.BACKWARD);
-        assertEquals(animal.getPosition(), new Vector2d(0, 0));
+        animal1.move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD);
+        assertEquals(new Vector2d(2, 0), animal1.getPosition());
 
-        animal.setPosition(new Vector2d(4, 0));
-        animal.move(MoveDirection.BACKWARD);
-        assertEquals(animal.getPosition(), new Vector2d(4, 0));
+        animal1.move(MoveDirection.LEFT).move(MoveDirection.FORWARD).move(MoveDirection.FORWARD).move(MoveDirection.FORWARD);
+        assertEquals(new Vector2d(0, 0), animal1.getPosition());
 
-        animal.setPosition(new Vector2d(0, 4));
-        animal.move(MoveDirection.FORWARD);
-        assertEquals(animal.getPosition(), new Vector2d(0, 4));
+        animal1.move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD)
+                .move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD);
+        assertEquals(new Vector2d(4, 0), animal1.getPosition());
 
-        animal.setPosition(new Vector2d(4, 4));
-        animal.move(MoveDirection.FORWARD);
-        assertEquals(animal.getPosition(), new Vector2d(4, 4));
 
-        animal.setPosition(new Vector2d(2, 4));
-        animal.move(MoveDirection.FORWARD);
-        assertEquals(animal.getPosition(), new Vector2d(2, 4));
+        Animal animal2 = new Animal(new RectangularMap(4, 4), new Vector2d(2, 2));
 
-        animal.setPosition(new Vector2d(2, 0));
-        animal.move(MoveDirection.BACKWARD);
-        assertEquals(animal.getPosition(), new Vector2d(2, 0));
+        animal2.move(MoveDirection.FORWARD).move(MoveDirection.FORWARD).move(MoveDirection.FORWARD);
+        assertEquals(new Vector2d(2, 4), animal2.getPosition());
 
-        animal.setPosition(new Vector2d(4, 2));
-        animal.setDirection(MapDirection.EAST);
-        animal.move(MoveDirection.FORWARD);
-        assertEquals(animal.getPosition(), new Vector2d(4, 2));
+        animal2.move(MoveDirection.LEFT).move(MoveDirection.FORWARD).move(MoveDirection.FORWARD).move(MoveDirection.FORWARD);
+        assertEquals(new Vector2d(0, 4), animal2.getPosition());
 
-        animal.setPosition(new Vector2d(0, 2));
-        animal.setDirection(MapDirection.WEST);
-        animal.move(MoveDirection.FORWARD);
-        assertEquals(animal.getPosition(), new Vector2d(0, 2));
+        animal2.move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD)
+                .move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD);
+        assertEquals(new Vector2d(4, 4), animal2.getPosition());
+
+
+        Animal animal3 = new Animal(new RectangularMap(4, 4), new Vector2d(2, 2));
+
+        animal3.move(MoveDirection.LEFT).move(MoveDirection.FORWARD).move(MoveDirection.FORWARD).move(MoveDirection.FORWARD);
+        assertEquals(new Vector2d(0, 2), animal3.getPosition());
+
+        animal3.move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD)
+                .move(MoveDirection.BACKWARD).move(MoveDirection.BACKWARD);
+        assertEquals(new Vector2d(4, 2), animal3.getPosition());
     }
-
 }

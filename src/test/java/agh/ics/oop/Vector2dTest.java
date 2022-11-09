@@ -49,7 +49,6 @@ public class Vector2dTest {
 
         assertEquals(vector2, vector1.upperRight(vector2));
         assertNotEquals(vector1, vector2.upperRight(vector1));
-        assertNull(vector1.upperRight(vector3));
     }
 
     @Test
@@ -60,7 +59,6 @@ public class Vector2dTest {
 
         assertEquals(vector1, vector1.lowerLeft(vector2));
         assertNotEquals(vector2, vector2.lowerLeft(vector1));
-        assertNull(vector1.lowerLeft(vector3));
     }
 
     @Test
