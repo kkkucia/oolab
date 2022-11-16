@@ -4,15 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-public class RectangularMapTest {
+public class GrassFieldTest {
     @Test
     public void placeTest() {
-        RectangularMap map = new RectangularMap(8, 8);
+        GrassField map = new GrassField(10);
         Animal animal1 = new Animal(map, new Vector2d(4, 4));
         Animal animal2 = new Animal(map, new Vector2d(2, 4));
         Animal animal3 = new Animal(map, new Vector2d(4, 4));
-        Animal animal4 = new Animal(map, new Vector2d(9, 9));
+        Animal animal4 = new Animal(map, new Vector2d(10, 41));
         map.place(animal1);
         map.place(animal2);
         map.place(animal3);
@@ -21,12 +20,12 @@ public class RectangularMapTest {
         assertTrue(map.animals.contains(animal1));
         assertTrue(map.animals.contains(animal2));
         assertFalse(map.animals.contains(animal3));
-        assertFalse(map.animals.contains(animal4));
+        assertTrue(map.animals.contains(animal4));
     }
 
     @Test
     public void isOccupiedTest() {
-        RectangularMap map = new RectangularMap(8, 8);
+        GrassField map = new GrassField(0);
         Animal animal = new Animal(map, new Vector2d(4, 4));
         map.place(animal);
 
@@ -36,17 +35,18 @@ public class RectangularMapTest {
 
     @Test
     public void canMoveToTest() {
-        RectangularMap map = new RectangularMap(8, 8);
+        GrassField map = new GrassField(100);
         Animal animal = new Animal(map, new Vector2d(4, 4));
         map.place(animal);
 
         assertTrue(map.canMoveTo(new Vector2d(2, 2)));
+        assertTrue(map.canMoveTo(new Vector2d(21, 37)));
         assertFalse(map.canMoveTo(new Vector2d(4, 4)));
     }
 
     @Test
     public void objectAtTest() {
-        RectangularMap map = new RectangularMap(8, 8);
+        GrassField map = new GrassField(0);
         Animal animal = new Animal(map, new Vector2d(4, 4));
         map.place(animal);
 

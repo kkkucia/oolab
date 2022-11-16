@@ -1,13 +1,12 @@
 package agh.ics.oop;
 
-public class Animal {
+public class Animal extends AbstractWorldMapElement {
     private MapDirection direction;
-    private Vector2d position;
     private final IWorldMap map;
 
     public Animal(IWorldMap map, Vector2d initialPosition) {
+        super(initialPosition);
         this.direction = MapDirection.NORTH;
-        this.position = initialPosition;
         this.map = map;
     }
 
@@ -15,17 +14,9 @@ public class Animal {
         return direction;
     }
 
-    public Vector2d getPosition() {
-        return position;
-    }
-
     @Override
     public String toString() {
         return direction.toString();
-    }
-
-    public boolean isAt(Vector2d position) {
-        return this.position.equals(position);
     }
 
     private void changePosition(boolean moveForward) {

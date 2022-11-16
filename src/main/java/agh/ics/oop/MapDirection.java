@@ -11,8 +11,8 @@ public enum MapDirection {
         return switch (this) {
             case NORTH -> "^";
             case SOUTH -> "v";
-            case WEST -> ">";
-            case EAST -> "<";
+            case WEST -> "<";
+            case EAST -> ">";
         };
     }
 
