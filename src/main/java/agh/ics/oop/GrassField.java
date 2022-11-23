@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import static java.lang.Math.sqrt;
-
 import static java.util.Collections.shuffle;
 
 public class GrassField extends AbstractWorldMap {
@@ -25,14 +24,16 @@ public class GrassField extends AbstractWorldMap {
             for (int j = 0; j < grassQuantity; j++) {
                 Vector2d grassPosition = new Vector2d(grassCoordinatesListX.get(j), grassCoordinatesListY.get(j));
                 changeMapBounds(grassPosition);
-                grassList.add(new Grass(grassPosition));
+                grassList.put(grassPosition, new Grass(grassPosition));
             }
         } else {
-            for (int i = 0; i < grassQuantity; i++) {
+            int i = 0;
+            while (i < grassQuantity) {
                 Vector2d grassPosition = randomPositionGenerator();
                 if (!isOccupied(grassPosition)) {
                     changeMapBounds(grassPosition);
-                    grassList.add(new Grass(grassPosition));
+                    grassList.put(grassPosition, new Grass(grassPosition));
+                    i++;
                 }
             }
         }
@@ -44,7 +45,6 @@ public class GrassField extends AbstractWorldMap {
             grassCoordinatesList.add(i);
         }
         shuffle(grassCoordinatesList);
-
         return grassCoordinatesList;
     }
 
@@ -52,7 +52,6 @@ public class GrassField extends AbstractWorldMap {
         Random generator = new Random();
         int x = generator.nextInt((int) Math.sqrt(grassQuantity * 10) + 1);
         int y = generator.nextInt((int) Math.sqrt(grassQuantity * 10) + 1);
-
         return new Vector2d(x, y);
     }
 }

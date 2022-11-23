@@ -10,17 +10,14 @@ public class GrassFieldTest {
         GrassField map = new GrassField(10);
         Animal animal1 = new Animal(map, new Vector2d(4, 4));
         Animal animal2 = new Animal(map, new Vector2d(2, 4));
-        Animal animal3 = new Animal(map, new Vector2d(4, 4));
-        Animal animal4 = new Animal(map, new Vector2d(10, 41));
+        Animal animal3 = new Animal(map, new Vector2d(10, 41));
         map.place(animal1);
         map.place(animal2);
         map.place(animal3);
-        map.place(animal4);
 
-        assertTrue(map.animals.contains(animal1));
-        assertTrue(map.animals.contains(animal2));
-        assertFalse(map.animals.contains(animal3));
-        assertTrue(map.animals.contains(animal4));
+        assertTrue(map.animalList.containsValue(animal1));
+        assertTrue(map.animalList.containsValue(animal2));
+        assertTrue(map.animalList.containsValue(animal3));
     }
 
     @Test

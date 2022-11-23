@@ -1,33 +1,23 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
+
 public class OptionsParser {
 
-    private static int countMoves(String[] args) {
-        int moveCounter = 0;
+    public static MoveDirection[] parse(String[] args) throws IllegalArgumentException {
+        ArrayList<MoveDirection> directionList = new ArrayList<>();
 
         for (String arg : args) {
             switch (arg) {
-                case "f", "forward", "b", "backward", "r", "right", "l", "left" -> moveCounter += 1;
+                case "f", "forward" -> directionList.add(MoveDirection.FORWARD);
+                case "b", "backward" -> directionList.add(MoveDirection.BACKWARD);
+                case "r", "right" -> directionList.add(MoveDirection.RIGHT);
+                case "l", "left" -> directionList.add(MoveDirection.LEFT);
+                default -> throw new IllegalArgumentException(arg + " is not legal move specification.");
             }
         }
-        return moveCounter;
-    }
-
-    public static MoveDirection[] parse(String[] args) {
-        int numberOfMoves = countMoves(args);
-
-        MoveDirection[] moves = new MoveDirection[numberOfMoves];
-        int j = 0;
-        for (String arg : args) {
-            switch (arg) {
-                case "f", "forward" -> moves[j] = MoveDirection.FORWARD;
-                case "b", "backward" -> moves[j] = MoveDirection.BACKWARD;
-                case "r", "right" -> moves[j] = MoveDirection.RIGHT;
-                case "l", "left" -> moves[j] = MoveDirection.LEFT;
-                default -> j -= 1;
-            }
-            j += 1;
-        }
+        MoveDirection[] moves = new MoveDirection[directionList.size()];
+        directionList.toArray(moves);
         return moves;
     }
 }
