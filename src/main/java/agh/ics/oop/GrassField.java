@@ -23,7 +23,7 @@ public class GrassField extends AbstractWorldMap {
             ArrayList<Integer> grassCoordinatesListY = generateGrassCoordinates();
             for (int j = 0; j < grassQuantity; j++) {
                 Vector2d grassPosition = new Vector2d(grassCoordinatesListX.get(j), grassCoordinatesListY.get(j));
-                changeMapBounds(grassPosition);
+                mapBoundary.addPosition(grassPosition);
                 grassList.put(grassPosition, new Grass(grassPosition));
             }
         } else {
@@ -31,7 +31,7 @@ public class GrassField extends AbstractWorldMap {
             while (i < grassQuantity) {
                 Vector2d grassPosition = randomPositionGenerator();
                 if (!isOccupied(grassPosition)) {
-                    changeMapBounds(grassPosition);
+                    mapBoundary.addPosition(grassPosition);
                     grassList.put(grassPosition, new Grass(grassPosition));
                     i++;
                 }
@@ -54,4 +54,26 @@ public class GrassField extends AbstractWorldMap {
         int y = generator.nextInt((int) Math.sqrt(grassQuantity * 10) + 1);
         return new Vector2d(x, y);
     }
+
+
+    @Override
+    public void grassIsEating(Vector2d position) {
+        if (objectAt(position) instanceof Grass) {
+            changePlaceGrass((Grass) objectAt(position));
+        }
+    }
+
+    private void changePlaceGrass(Grass grass) {
+        Vector2d newPosition;
+        do {
+            newPosition = randomPositionGenerator();
+        } while (isOccupied(newPosition));
+
+        mapBoundary.positionChanged(grass.position, newPosition);
+        grassList.put(newPosition, grass);
+        grassList.remove(grass.position, grass);
+        grass.position = newPosition;
+    }
+
+
 }

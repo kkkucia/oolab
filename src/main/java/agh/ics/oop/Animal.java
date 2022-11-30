@@ -7,6 +7,7 @@ public class Animal extends AbstractWorldMapElement {
     private final IWorldMap map;
     private final ArrayList<IPositionChangeObserver> observerList;
 
+
     public Animal(IWorldMap map, Vector2d initialPosition) {
         super(initialPosition);
         this.direction = MapDirection.NORTH;

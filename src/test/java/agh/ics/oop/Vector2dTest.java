@@ -45,7 +45,6 @@ public class Vector2dTest {
     public void testVector2UpperRight() {
         Vector2d vector1 = new Vector2d(2, 1);
         Vector2d vector2 = new Vector2d(3, 4);
-        Vector2d vector3 = new Vector2d(3, 1);
 
         assertEquals(vector2, vector1.upperRight(vector2));
         assertNotEquals(vector1, vector2.upperRight(vector1));
@@ -55,7 +54,6 @@ public class Vector2dTest {
     public void testVector2LowerLeft() {
         Vector2d vector1 = new Vector2d(2, 1);
         Vector2d vector2 = new Vector2d(3, 4);
-        Vector2d vector3 = new Vector2d(3, 1);
 
         assertEquals(vector1, vector1.lowerLeft(vector2));
         assertNotEquals(vector2, vector2.lowerLeft(vector1));
