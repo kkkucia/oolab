@@ -16,6 +16,15 @@ public enum MapDirection {
         };
     }
 
+    public int getRotation(){
+        return switch (this) {
+            case NORTH -> 0;
+            case SOUTH -> 180;
+            case WEST -> 270;
+            case EAST -> 90;
+        };
+    }
+
     public MapDirection next() {
         return switch (this) {
             case NORTH -> EAST;

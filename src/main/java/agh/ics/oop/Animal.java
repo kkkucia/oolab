@@ -25,6 +25,11 @@ public class Animal extends AbstractWorldMapElement {
         return direction.toString();
     }
 
+    @Override
+    public String getTexture() {
+        return "src/main/resources/animal.png";
+    }
+
     private void changePosition(boolean moveForward) {
         Vector2d newPosition;
         if (moveForward) {
